@@ -32,20 +32,21 @@
   <script>
     const imageContainer = document.getElementById('imageContainer');
 
-    // Fetch images directly without expecting JSON
+    // Fetch images from the 'images' directory
     fetch('/images') // Replace '/images' with your directory path
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        return response.blob();
+        return response.json(); // Assuming server returns JSON array of image paths
       })
-      .then(blob => {
-        const objectURL = URL.createObjectURL(blob);
-        const imgElement = document.createElement('img');
-        imgElement.src = objectURL;
-        imgElement.alt = 'Image';
-        imageContainer.appendChild(imgElement);
+      .then(data => {
+        data.forEach(imagePath => {
+          const imgElement = document.createElement('img');
+          imgElement.src = imagePath;
+          imgElement.alt = 'Image';
+          imageContainer.appendChild(imgElement);
+        });
       })
       .catch(error => console.error('Error fetching images:', error));
   </script>
