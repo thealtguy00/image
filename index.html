@@ -34,7 +34,7 @@
     const imageContainer = document.getElementById('imageContainer');
 
     // Fetch images from the 'images' directory
-    fetch('/images') // Replace '/images' with your directory path
+    fetch('.') // Replace '/images' with your directory path
       .then(response => response.json())
       .then(data => {
         data.forEach(image => {
